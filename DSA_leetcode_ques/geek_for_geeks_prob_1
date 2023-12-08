@@ -1,0 +1,46 @@
+//Given a link list of size N, modify the list such that all the even numbers appear before all the odd numbers in the modified list. The order of appearance of numbers within each segregation should be same as that in the original list.
+
+//NOTE: Don't create a new linked list, instead rearrange the provided one.
+
+
+class Solution{
+public:
+    Node* divide(int N, Node *head){
+       Node* start_even=NULL;
+       Node* start_odd=NULL;
+       Node* end_even=NULL;
+       Node* end_odd=NULL;
+       
+       while(head){
+           if(head->data % 2==0){
+               
+               if(start_even==NULL){
+                   start_even=head;
+                   end_even=head;
+               }
+               else{
+                   end_even->next=head;
+                   end_even=end_even->next;
+               }
+               
+           }
+           else{
+               
+               if(start_odd==NULL){
+                   start_odd=head;
+                   end_odd=head;
+               }
+               else{
+                   end_odd->next=head;
+                   end_odd=end_odd->next;
+               }
+           }
+           head=head->next;
+       }
+       
+       if(end_even)end_even->next=start_odd;
+       if(end_odd)end_odd->next=NULL;
+       if(start_even)return start_even;
+       return start_odd;
+    }
+};
